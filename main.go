@@ -60,8 +60,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//log.Printf("DBG: example.config.yml copied to config.yml")
-	//log.Printf("DBG: example.inventory.yml copied to inventory.yml")
+	log.Printf("DBG: example.config.yml copied to config.yml")
+	log.Printf("DBG: example.inventory.yml copied to inventory.yml")
 
 	// Truncate the webinstall.log file
 	f, err := os.OpenFile("webinstall.log", os.O_WRONLY|os.O_TRUNC, 0644)
@@ -69,13 +69,13 @@ func main() {
 		log.Fatal(err)
 	}
 	defer f.Close()
-	//log.Printf("DBG: webinstall.log truncated")
+	log.Printf("DBG: webinstall.log truncated")
 
 	// Write "announcement" to the webinstall.log file
-	if _, err := f.WriteString("Here will be the log of Raspberry Gateway installation progress, after you'll press \"Install\" button.\n"); err != nil {
+	if _, err := f.WriteString("Here will be the log of VPNTV installation progress, after you'll press \"Install\" button.\n"); err != nil {
 		log.Fatal(err)
 	}
-	//log.Printf("DBG: webinstall.log updated with \"announcement\"")
+	log.Printf("DBG: webinstall.log updated with \"announcement\"")
 
 	// Log the welcome message
 	log.Printf("Welcome! The web interface will guide you on installation process.\nInstallation logs: webinstall.log\n")
@@ -120,7 +120,7 @@ func main() {
 
 	// Handle file uploads
 	r.HandleFunc("/upload", func(w http.ResponseWriter, r *http.Request) {
-		//log.Printf("DBG: /upload called from webui")
+		log.Printf("DBG: /upload called from webui")
 
 		if r.Method != "POST" {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -145,11 +145,9 @@ func main() {
 		var filePath string
 		switch fileType {
 		case "openvpn":
-			filePath = "openvpn-client/webinstall-client.ovpn"
+			filePath = "client-ovpn/client.ovpn"
 		case "openvpn-secret":
-			filePath = "openvpn-client/webinstall-credentials.txt"
-		case "gluetun":
-			filePath = "gluetun/ovpn-client/webinstall-client.ovpn"
+			filePath = "client-ovpn/credentials.txt"
 		default:
 			http.Error(w, "Invalid file type specified", http.StatusBadRequest)
 			return
@@ -160,7 +158,7 @@ func main() {
 			return
 		}
 		defer f.Close()
-		//log.Printf("DBG: File created: %s", f.Name())
+		log.Printf("DBG: File created: %s", f.Name())
 
 		// Copy the contents of the uploaded file to the new file
 		_, err = io.Copy(f, file)
@@ -168,7 +166,7 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		//log.Printf("DBG: %s file upload successfully", fileType)
+		log.Printf("DBG: %s file upload successfully", fileType)
 	})
 
 	// Create a new server
@@ -230,8 +228,8 @@ func readInventoryConfig() (InventoryConfig, error) {
 	if err != nil {
 		return config, err
 	}
-	//log.Printf("DBG: Func Read inventory config. Data:\n")
-	//log.Printf("DBG: %+v", config)
+	log.Printf("DBG: Func Read inventory config. Data:\n")
+	log.Printf("DBG: %+v", config)
 	return config, nil
 }
 
@@ -249,7 +247,7 @@ func writeInventoryConfig(config InventoryConfig) error {
 	if err != nil {
 		return err
 	}
-	//log.Printf("DBG: Func Write inventory config")
+	log.Printf("DBG: Func Write inventory config")
 	return nil
 }
 
@@ -259,14 +257,14 @@ func editConfig(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	//log.Printf("DBG: editConfig called. Starting to read inventory config")
+	log.Printf("DBG: editConfig called. Starting to read inventory config")
 
 	inventoryConfig, err := readInventoryConfig()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	//log.Printf("DBG: inventory config read. Starting to get server IP")
+	log.Printf("DBG: inventory config read. Starting to get server IP")
 
 	ip, err := getServerIP()
 	if err != nil {
@@ -286,14 +284,14 @@ func editConfig(w http.ResponseWriter, r *http.Request) {
 		Config          Config
 		InventoryConfig InventoryConfig
 	}
-	//log.Printf("DBG: defined TemplateData struct. for inventory")
+	log.Printf("DBG: defined TemplateData struct. for inventory")
 
 	data := TemplateData{
 		Config:          config,
 		InventoryConfig: inventoryConfig,
 	}
-	//log.Printf("DBG: defined data constan. Starting to combine template with data:\n")
-	//log.Printf("DBG: %+v", data)
+	log.Printf("DBG: defined data constan. Starting to combine template with data:\n")
+	log.Printf("DBG: %+v", data)
 
 	err = tmpl.Execute(w, data)
 	if err != nil {
@@ -324,30 +322,13 @@ func saveConfig(w http.ResponseWriter, r *http.Request) {
 		WifiModuleRemove: r.FormValue("wifi_module_remove") == "on",
 		OvpnClientRemove: r.FormValue("ovpnclient_remove") == "on",
 	}
-	if r.FormValue("unbound_dns_hide") == "on" {
-		config.UndoundDNSHide = "yes"
-	} else {
-		config.UndoundDNSHide = "no"
-	}
-
-	if r.FormValue("unbound_dns_ipv4") == "on" {
-		config.UnboundDNSIpV4 = "yes"
-	} else {
-		config.UnboundDNSIpV4 = "no"
-	}
-
-	if r.FormValue("unbound_dns_ipv6") == "on" {
-		config.UnboundDNSIpV6 = "yes"
-	} else {
-		config.UnboundDNSIpV6 = "no"
-	}
 
 	err := writeConfig(config)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	//log.Printf("DBG: main config saved")
+	log.Printf("DBG: main config saved")
 
 	inventoryConfig := InventoryConfig{
 		All: struct {
@@ -382,14 +363,14 @@ func saveConfig(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
-	//log.Printf("DBG: Inventory config saved. Starting writeInventoryConfig")
+	log.Printf("DBG: Inventory config saved. Starting writeInventoryConfig")
 
 	err = writeInventoryConfig(inventoryConfig)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	//log.Printf("DBG: writeInventoryConfig done. redirecting to /")
+	log.Printf("DBG: writeInventoryConfig done. redirecting to /")
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
