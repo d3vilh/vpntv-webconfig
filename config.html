@@ -99,7 +99,7 @@
             <label for="vpntv_ansible_user" title="The username used by Ansible to connect to the VPNTV.">
               <b>Ansible User:</b>
             </label>
-            <input type="text" name="vpntv_gateway_ansible_user" title="The username used by Ansible to connect to the VPNTV." placeholder="Current Linux username" value="{{.InventoryConfig.All.Hosts.Vpntv.AnsibleUser}}">
+            <input type="text" name="vpntv_ansible_user" title="The username used by Ansible to connect to the VPNTV." placeholder="Current Linux username" value="{{.InventoryConfig.All.Hosts.Vpntv.AnsibleUser}}">
           </td>
         </tr>
         <tr>
@@ -154,6 +154,15 @@
               <span>For "local" installations - does not make sense, for remote - set remote VPNTV IP.</span>
             </td>
           </tr>
+          <tr>
+            <td>
+              &nbsp
+            </td>
+            <td>
+            <!-- Ansible Use --><label for="vpntv_ansible_use" style="visibility: hidden;">o</label>
+              <input type="text" name="vpntv_ansible_use" value="{{.InventoryConfig.All.Hosts.Vpntv.AnsibleUse}}" disabled>
+            </td>
+          </tr>
         </table>
       </details>
 
@@ -191,6 +200,23 @@
               <span>vpntv/client-ovpn/client.ovpn</span></p>
           </td>
         </tr>
+      </table>
+  </form>
+
+  <form id="secret-form" action="/upload?type=openvpn-secret" method="post" enctype="multipart/form-data">
+    <table>
+      <tr openvpn-client="config">
+        <td>
+          <input type="checkbox" style="visibility: hidden;" disabled>
+        </td>
+        <td>
+          <label for="ovpn_client_secret" title="Text file with client user and password. Check documentation">OpenVPN Client Secret:</label>
+          <input type="file" name="file" title="Text file with client user and password. Check documentation"> 
+          <input type="submit" value="Upload">
+          <p id="secret-success-message" style="display: none; margin-left: 10px;">File uploaded as: 
+            <span>vpntv/client-ovpn/credentials.txt</span></p>
+        </td>
+      </tr>
       </table>
   </form>
 
@@ -256,7 +282,7 @@
               // handle success response
               console.log(xhr.responseText);
               saveMessage.style.display = 'inline-block';
-              alert("New configuration have been saved.");
+              //alert("New configuration have been saved.");
             };
             xhr.onerror = function() {
               alert("Something went wrong.");
