@@ -15,26 +15,27 @@ import (
 )
 
 type Config struct {
-	ConfigDir        string `yaml:"config_dir"`
-	URTimezone       string `yaml:"ur_timezone"`
-	OpenVPNClient    bool   `yaml:"ovpn_client_enable"`
-	OpenVPNExtPort   string `yaml:"openvpn_external_port"`
-	Eth2WifiEnable   bool   `yaml:"ethernet2wifi_enable"`
-	WifiSsidT1       string `yaml:"wifi_ssid_t1"`
-	WifiPassT1       string `yaml:"wifi_password_t1"`
-	WifiIntT1        string `yaml:"wifi_interface_t1"`
-	WifiChannelT1    string `yaml:"wifi_channel_t1"`
-	Wifi2Wifi        bool   `yaml:"wifi2wifi_enable"`
-	WifiModEnable    bool   `yaml:"wifi_mod_enable"`
-	WifiSsidT2       string `yaml:"wifi_ssid_t2"`
-	WifiPassT2       string `yaml:"wifi_password_t2"`
-	WifiIntT2        string `yaml:"wifi_interface_t2"`
-	WifiChannelT2    string `yaml:"wifi_channel_t2"`
-	Wifi2EthEnable   bool   `yaml:"wifi2ethernet_enable"`
-	WifiConfigRemove bool   `yaml:"wifi_config_remove"`
-	WifiModuleRemove bool   `yaml:"wifi_module_remove"`
-	OvpnClientRemove bool   `yaml:"ovpnclient_remove"`
-	IPAddress        string // to pass your IP address to the template
+	ConfigDir         string `yaml:"config_dir"`
+	URTimezone        string `yaml:"ur_timezone"`
+	OpenVPNClient     bool   `yaml:"ovpn_client_enable"`
+	OpenVPNClientCert string `yaml:"client.ovpn"`
+	OvpnClientRemove  bool   `yaml:"ovpnclient_remove"`
+	OpenVPNExtPort    string `yaml:"openvpn_external_port"`
+	Eth2WifiEnable    bool   `yaml:"ethernet2wifi_enable"`
+	WifiSsidT1        string `yaml:"wifi_ssid_t1"`
+	WifiPassT1        string `yaml:"wifi_password_t1"`
+	WifiIntT1         string `yaml:"wifi_interface_t1"`
+	WifiChannelT1     string `yaml:"wifi_channel_t1"`
+	Wifi2Wifi         bool   `yaml:"wifi2wifi_enable"`
+	WifiModEnable     bool   `yaml:"wifi_mod_enable"`
+	WifiSsidT2        string `yaml:"wifi_ssid_t2"`
+	WifiPassT2        string `yaml:"wifi_password_t2"`
+	WifiIntT2         string `yaml:"wifi_interface_t2"`
+	WifiChannelT2     string `yaml:"wifi_channel_t2"`
+	Wifi2EthEnable    bool   `yaml:"wifi2ethernet_enable"`
+	WifiConfigRemove  bool   `yaml:"wifi_config_remove"`
+	WifiModuleRemove  bool   `yaml:"wifi_module_remove"`
+	IPAddress         string // to pass your IP address to the template
 }
 
 type InventoryConfig struct {
@@ -302,25 +303,26 @@ func editConfig(w http.ResponseWriter, r *http.Request) {
 
 func saveConfig(w http.ResponseWriter, r *http.Request) {
 	config := Config{
-		ConfigDir:        r.FormValue("config_dir"),
-		URTimezone:       r.FormValue("ur_timezone"),
-		OpenVPNClient:    r.FormValue("ovpn_client_enable") == "on",
-		OpenVPNExtPort:   r.FormValue("openvpn_external_port"),
-		Eth2WifiEnable:   r.FormValue("ethernet2wifi_enable") == "on",
-		WifiSsidT1:       r.FormValue("wifi_ssid_t1"),
-		WifiPassT1:       r.FormValue("wifi_password_t1"),
-		WifiIntT1:        r.FormValue("wifi_interface_t1"),
-		WifiChannelT1:    r.FormValue("wifi_channel_t1"),
-		Wifi2Wifi:        r.FormValue("wifi2wifi_enable") == "on",
-		WifiModEnable:    r.FormValue("wifi_mod_enable") == "on",
-		WifiSsidT2:       r.FormValue("wifi_ssid_t2"),
-		WifiPassT2:       r.FormValue("wifi_password_t2"),
-		WifiIntT2:        r.FormValue("wifi_interface_t2"),
-		WifiChannelT2:    r.FormValue("wifi_channel_t2"),
-		Wifi2EthEnable:   r.FormValue("wifi2ethernet_enable") == "on",
-		WifiConfigRemove: r.FormValue("wifi_config_remove") == "on",
-		WifiModuleRemove: r.FormValue("wifi_module_remove") == "on",
-		OvpnClientRemove: r.FormValue("ovpnclient_remove") == "on",
+		ConfigDir:         r.FormValue("config_dir"),
+		URTimezone:        r.FormValue("ur_timezone"),
+		OpenVPNClient:     r.FormValue("ovpn_client_enable") == "on",
+		OpenVPNClientCert: r.FormValue("ovpn_client_cert"),
+		OpenVPNExtPort:    r.FormValue("openvpn_external_port"),
+		Eth2WifiEnable:    r.FormValue("ethernet2wifi_enable") == "on",
+		WifiSsidT1:        r.FormValue("wifi_ssid_t1"),
+		WifiPassT1:        r.FormValue("wifi_password_t1"),
+		WifiIntT1:         r.FormValue("wifi_interface_t1"),
+		WifiChannelT1:     r.FormValue("wifi_channel_t1"),
+		Wifi2Wifi:         r.FormValue("wifi2wifi_enable") == "on",
+		WifiModEnable:     r.FormValue("wifi_mod_enable") == "on",
+		WifiSsidT2:        r.FormValue("wifi_ssid_t2"),
+		WifiPassT2:        r.FormValue("wifi_password_t2"),
+		WifiIntT2:         r.FormValue("wifi_interface_t2"),
+		WifiChannelT2:     r.FormValue("wifi_channel_t2"),
+		Wifi2EthEnable:    r.FormValue("wifi2ethernet_enable") == "on",
+		WifiConfigRemove:  r.FormValue("wifi_config_remove") == "on",
+		WifiModuleRemove:  r.FormValue("wifi_module_remove") == "on",
+		OvpnClientRemove:  r.FormValue("ovpnclient_remove") == "on",
 	}
 
 	err := writeConfig(config)
