@@ -167,7 +167,7 @@
       </details>
 
       <h1>OpenVPN Client</h1>
-      <p>Classic OpenVPN Client Setup (no Gluetun)</p>
+      <p>Classic OpenVPN Client Setup</p>
       <table>
         <tr>
           <td>
@@ -219,6 +219,41 @@
       </tr>
       </table>
   </form>
+
+  <h1>VPNTV Configuration</h1>
+  <p>VPNTV configuration</p>
+  <table>
+    <tr>
+      <td>
+        <input type="checkbox" name="ethernet2wifi_enable" id="ethernet2wifi_enable" title="Enables Ethernet 2 WiFi VPNTV Configuration" {{if .Config.Eth2WifiEnable}}checked{{end}}>
+      </td>
+      <td>
+        <label for="ethernet2wifi_enable" title="Enables Ethernet 2 WiFi VPNTV Configuration"><b>Ethernet 2 WiFi</b></label>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <input type="checkbox" name="wifi2wifi_enable" id="wifi2wifi_enable" title="Enables WiFi 2 WiFi VPNTV Configuration" {{if .Config.Wifi2Wifi}}checked{{end}}>
+      </td>
+      <td>
+        <label for="wifi2wifi_enable" title="Enables WiFi 2 WiFi VPNTV Configuration"><b>WiFi 2 WiFi</b></label>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <input type="checkbox" name="wifi2ethernet_enable" id="wifi2ethernet_enable" title="Enables WiFi 2 Ethernet VPNTV Configuration" {{if .Config.Wifi2EthEnable}}checked{{end}}>
+      </td>
+      <td>
+        <label for="wifi2ethernet_enable" title="Enables WiFi 2 Ethernet VPNTV Configuration"><b>WiFi 2 Ethernet</b></label>
+      </td>
+    </tr>
+
+  </table>
+</form>
+
+
 
     <br><button id="submit-btn" style="font-family: monospace; font-size: 2em; width: 100px; height: 40px;">Save</button>
     <span id="save-message" style="display: none;">Configuration has been saved.</span>
