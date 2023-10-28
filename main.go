@@ -236,6 +236,7 @@ func writeInventoryConfig(config InventoryConfig) error {
 	if err != nil {
 		return err
 	}
+	//log.Printf("Writing the following data to inventory.yml: %s", data)
 	file, err := os.Create("inventory.yml")
 	if err != nil {
 		return err
@@ -309,7 +310,7 @@ func saveConfig(w http.ResponseWriter, r *http.Request) {
 		WifiSsid:          r.FormValue("wifi_ssid"),
 		WifiPass:          r.FormValue("wifi_password"),
 		WifiIntT1:         r.FormValue("wifi_interface"),
-		WifiChannel:       r.FormValue("wifi_channel_t1"),
+		WifiChannel:       r.FormValue("wifi_channel"),
 		Wifi2Wifi:         r.FormValue("wifi2wifi_enable") == "on",
 		WifiModEnable:     r.FormValue("wifi_mod_enable") == "on",
 		WifiIntT2:         r.FormValue("wifi_interface_t2"),
@@ -319,6 +320,7 @@ func saveConfig(w http.ResponseWriter, r *http.Request) {
 		OvpnClientRemove:  r.FormValue("ovpnclient_remove") == "on",
 	}
 
+	log.Printf("Saving main config: %v", config)
 	err := writeConfig(config)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -359,6 +361,7 @@ func saveConfig(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
+
 	log.Printf("DBG: Inventory config saved. Starting writeInventoryConfig")
 
 	err = writeInventoryConfig(inventoryConfig)

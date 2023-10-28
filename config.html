@@ -89,7 +89,7 @@
         <tr>
           <td></td>
           <td>
-            <span>Local VPNTV Timezone. Used for various containers.</span>
+            <span>Local VPNTV Timezone. Used for various containers</span>
           </td>
         </tr>
         <tr>
@@ -105,7 +105,7 @@
         <tr>
           <td></td>
           <td>
-            <span>Keep default, which is "pi". In most cases should be your local Linux user.</span>
+            <span>Keep default, which is "pi". In most cases should be your local Linux user</span>
           </td>
         </tr>
       </table>
@@ -134,7 +134,7 @@
           <tr>
             <td></td>
             <td>
-              <span>Keep default - "local", for local installations, or "ssh" for remote.</span>
+              <span>Keep default - "local", for local installations, or "ssh" for remote</span>
             </td>
           </tr>
           <tr ansible-host="not-local">
@@ -151,7 +151,7 @@
           <tr ansible-host="not-local">
             <td></td>
             <td>
-              <span>For "local" installations - does not make sense, for remote - set remote VPNTV IP.</span>
+              <span>For "local" installations - does not make sense, for remote - set remote VPNTV IP</span>
             </td>
           </tr>
           <tr>
@@ -159,12 +159,65 @@
               &nbsp
             </td>
             <td>
-            <!-- Ansible Use --><label for="vpntv_ansible_use" style="visibility: hidden;">o</label>
-              <input type="text" name="vpntv_ansible_use" value="{{.InventoryConfig.All.Hosts.Vpntv.AnsibleUse}}" disabled>
+               <!-- Ansible Use -->
+              <label for="ansible_use" style="visibility: hidden;">o</label>
+              <input type="text" id="vpntv_ansible_use" name="vpntv_ansible_use" value="{{.InventoryConfig.All.Hosts.Vpntv.AnsibleUse}}" style="visibility: hidden;" >
             </td>
           </tr>
         </table>
       </details>
+
+      <h1>WiFi Configuration</h1>
+      <p>VPNTV WiFi Access Point configuration</p>
+      <table>
+        <tr>
+          <td></td>
+          <td>
+            <label for="wifi_ssid" title="New VPNTV WiFi Network Name.">
+              <b>WiFi AP Network Name:</b>
+            </label>
+            <input type="text" name="wifi_ssid" title="New VPNTV WiFi Network Name." placeholder="vpntv" value="{{.Config.WifiSsid}}">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <span>New WiFi network name to connect your TV to</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <label for="wifi_password" title="WiFi Password for new vpntv WiFi Network.">
+              <b>WiFi AP Network Password:</b>
+            </label>
+            <input type="text" name="wifi_password" title="WiFi Password for new vpntv WiFi Network." placeholder="Glory2Ukraine!" value="{{.Config.WifiPass}}">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <span>New WiFi network password to connect your TV to</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <label for="wifi_channel" title="WiFi Network channel to use.">
+              <b>WiFi AP Network Channel:</b>
+            </label>
+            <input type="text" name="wifi_channel" title="WiFi Network channel to use." placeholder="7" value="{{.Config.WifiChannel}}">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <span>New WiFi network channel to use (don't change without purpose)</span>
+          </td>
+        </tr>
+      </table>
 
       <h1>OpenVPN Client</h1>
       <p>Classic OpenVPN Client Setup</p>
