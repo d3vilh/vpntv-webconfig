@@ -22,16 +22,13 @@ type Config struct {
 	OvpnClientRemove  bool   `yaml:"ovpnclient_remove"`
 	OpenVPNExtPort    string `yaml:"openvpn_external_port"`
 	Eth2WifiEnable    bool   `yaml:"ethernet2wifi_enable"`
-	WifiSsidT1        string `yaml:"wifi_ssid_t1"`
-	WifiPassT1        string `yaml:"wifi_password_t1"`
+	WifiSsid          string `yaml:"wifi_ssid"`
+	WifiPass          string `yaml:"wifi_password"`
+	WifiChannel       string `yaml:"wifi_channel"`
 	WifiIntT1         string `yaml:"wifi_interface_t1"`
-	WifiChannelT1     string `yaml:"wifi_channel_t1"`
 	Wifi2Wifi         bool   `yaml:"wifi2wifi_enable"`
 	WifiModEnable     bool   `yaml:"wifi_mod_enable"`
-	WifiSsidT2        string `yaml:"wifi_ssid_t2"`
-	WifiPassT2        string `yaml:"wifi_password_t2"`
 	WifiIntT2         string `yaml:"wifi_interface_t2"`
-	WifiChannelT2     string `yaml:"wifi_channel_t2"`
 	Wifi2EthEnable    bool   `yaml:"wifi2ethernet_enable"`
 	WifiConfigRemove  bool   `yaml:"wifi_config_remove"`
 	WifiModuleRemove  bool   `yaml:"wifi_module_remove"`
@@ -309,16 +306,13 @@ func saveConfig(w http.ResponseWriter, r *http.Request) {
 		OpenVPNClientCert: r.FormValue("ovpn_client_cert"),
 		OpenVPNExtPort:    r.FormValue("openvpn_external_port"),
 		Eth2WifiEnable:    r.FormValue("ethernet2wifi_enable") == "on",
-		WifiSsidT1:        r.FormValue("wifi_ssid_t1"),
-		WifiPassT1:        r.FormValue("wifi_password_t1"),
-		WifiIntT1:         r.FormValue("wifi_interface_t1"),
-		WifiChannelT1:     r.FormValue("wifi_channel_t1"),
+		WifiSsid:          r.FormValue("wifi_ssid"),
+		WifiPass:          r.FormValue("wifi_password"),
+		WifiIntT1:         r.FormValue("wifi_interface"),
+		WifiChannel:       r.FormValue("wifi_channel_t1"),
 		Wifi2Wifi:         r.FormValue("wifi2wifi_enable") == "on",
 		WifiModEnable:     r.FormValue("wifi_mod_enable") == "on",
-		WifiSsidT2:        r.FormValue("wifi_ssid_t2"),
-		WifiPassT2:        r.FormValue("wifi_password_t2"),
 		WifiIntT2:         r.FormValue("wifi_interface_t2"),
-		WifiChannelT2:     r.FormValue("wifi_channel_t2"),
 		Wifi2EthEnable:    r.FormValue("wifi2ethernet_enable") == "on",
 		WifiConfigRemove:  r.FormValue("wifi_config_remove") == "on",
 		WifiModuleRemove:  r.FormValue("wifi_module_remove") == "on",
