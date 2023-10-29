@@ -289,9 +289,9 @@
       <td></td>
       <td>
         <label for="wifi_interface_t1" title="WiFi Interface (don't change without purpose).">
-          <b>WiFi Interface Name(E2W):</b>
+          WiFi Interface Name(E2W):
         </label>
-        <input type="text" name="wifi_interface_t1" title="WiFi Interface (don't change without purpose)." placeholder="wlan0" value="{{.Config.WifiIntT1}}">
+        <input type="text" name="wifi_interface_t1" title="WiFi Interface (don't change without purpose)." placeholder="wlan0" value="{{.Config.WifiIntT1}}" maxlength="6" style="width: 50px;">
       </td>
     </tr>
 
@@ -308,16 +308,23 @@
         <input type="checkbox" name="wifi_mod_enable" id="wifi2wifi_enable" title="Install Kernel modules for WiFi to WiFi setup" {{if .Config.WifiModEnable}}checked{{end}}>
       </td>
       <td>
-        <label for="wifi_mod_enable" title="Install Kernel modules for WiFi to WiFi setup"><b>Install WiFi kernel modules</b></label>
+        <label for="wifi_mod_enable" title="Install Kernel modules for WiFi to WiFi setup">Install WiFi kernel modules</label>
       </td>
+      <td>
+        <input type="checkbox" name="wifi_module_remove" id="wifi_module_remove" title="Removes WiFi Modules" {{if .Config.WifiModuleRemove}}checked{{end}}>
+      </td>
+      <td>
+        <label for="wifi_module_remove" title="Removes WiFi Modules">Uninstall WiFi modules</label>
+      </td>
+
     </tr>
     <tr>
       <td></td>
       <td>
         <label for="wifi_interface_t2" title="WiFi Interface (don't change without purpose).">
-          <b>Interface Name(W2W):</b>
+          Interface Name(W2W):
         </label>
-        <input type="text" name="wifi_interface_t2" title="WiFi Interface (don't change without purpose)." placeholder="wlan1" value="{{.Config.WifiIntT2}}">
+        <input type="text" name="wifi_interface_t2" title="WiFi Interface (don't change without purpose)." placeholder="wlan1" value="{{.Config.WifiIntT2}}" maxlength="6" style="width: 50px;">
       </td>
     </tr>
 
@@ -329,6 +336,16 @@
         <label for="wifi2ethernet_enable" title="Enables WiFi 2 Ethernet VPNTV Configuration"><b>WiFi 2 Ethernet</b></label>
       </td>
     </tr>
+
+    <tr>
+      <td>
+        <input type="checkbox" name="wifi_config_remove" id="wifi_config_remove" title="removes all types of VPNTV connections configuration and stop the serives" {{if .Config.WifiConfigRemove}}checked{{end}}>
+      </td>
+      <td>
+        <label for="wifi_config_remove" title="removes all types of VPNTV connections configuration and stop the serives"><b>Remove VPNTV and stop services</b></label>
+      </td>
+    </tr>
+
 
   </table>
 </form>
