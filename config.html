@@ -459,6 +459,7 @@
         OpenVPNClientEnable.addEventListener('change', () => {
           if (OpenVPNClientEnable.checked) {
             removeOvpnClient.checked = false;
+            wifiConfigRemove.checked = false;
             OpenVPNClientConfigRows.forEach(row => row.style.display = '');
           } else {
             OpenVPNClientConfigRows.forEach(row => row.style.display = 'none');
@@ -550,6 +551,7 @@
             wifi2Wifi.checked = false;
             wifi2EthEnable.checked = false;
             wifiModEnable.checked = false;
+            OpenVPNClientEnable.checked = false;
           } else {
             wifiConfigRemove.checked = false;
           }
