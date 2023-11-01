@@ -285,13 +285,13 @@
       </td>
     </tr>
   
-    <tr>
+    <tr ethernet2wifi="config">
       <td></td>
       <td>
         <label for="wifi_interface_t1" title="WiFi Interface (don't change without purpose).">
           WiFi Interface Name(E2W):
         </label>
-        <input type="text" name="wifi_interface_t1" title="WiFi Interface (don't change without purpose)." placeholder="wlan0" value="{{.Config.WifiIntT1}}" maxlength="6" style="width: 50px;">
+        <input type="text" name="wifi_interface_t1" id="wifi_interface_t1" title="WiFi Interface (don't change without purpose)." placeholder="wlan0" value="{{.Config.WifiIntT1}}" maxlength="6" style="width: 50px;">
       </td>
     </tr>
 
@@ -303,9 +303,9 @@
         <label for="wifi2wifi_enable" title="Enables WiFi 2 WiFi VPNTV Configuration"><b>WiFi 2 WiFi</b></label>
       </td>
     </tr>
-    <tr>
+    <tr wifi2wifi="config">
       <td>
-        <input type="checkbox" name="wifi_mod_enable" id="wifi2wifi_enable" title="Install Kernel modules for WiFi to WiFi setup" {{if .Config.WifiModEnable}}checked{{end}}>
+        <input type="checkbox" name="wifi_mod_enable" id="wifi_mod_enable" title="Install Kernel modules for WiFi to WiFi setup" {{if .Config.WifiModEnable}}checked{{end}}>
       </td>
       <td>
         <label for="wifi_mod_enable" title="Install Kernel modules for WiFi to WiFi setup">Install WiFi kernel modules</label>
@@ -318,7 +318,7 @@
       </td>
 
     </tr>
-    <tr>
+    <tr wifi2wifi="config">
       <td></td>
       <td>
         <label for="wifi_interface_t2" title="WiFi Interface (don't change without purpose).">
@@ -448,7 +448,6 @@
           }
         });    
 
-
       // Hide/show rows based on OpenVPN Client enable value  
         const OpenVPNClientEnable = document.getElementById('ovpn_client_enable');
         const OpenVPNClientConfigRows = document.querySelectorAll('tr[openvpn-client="config"]');
@@ -459,7 +458,7 @@
 
         OpenVPNClientEnable.addEventListener('change', () => {
           if (OpenVPNClientEnable.checked) {
-            removeOppnClient.checked = false;
+            removeOvpnClient.checked = false;
             OpenVPNClientConfigRows.forEach(row => row.style.display = '');
           } else {
             OpenVPNClientConfigRows.forEach(row => row.style.display = 'none');
@@ -473,24 +472,90 @@
           }
         });
 
+      // Hide the VPNTV config rows based by logic
+        const eth2WifiEnable = document.getElementById('ethernet2wifi_enable');
+        const eth2WiFiConfig = document.querySelectorAll('tr[ethernet2wifi="config"]');
 
-      // Checkbox logic  
+        const wifi2Wifi = document.getElementById('wifi2wifi_enable');
+        const wifi2WifiConfig = document.querySelectorAll('tr[wifi2wifi="config"]');
 
-        const ovpnClientEnable = document.getElementById('ovpn_client_enable');
-        const removeOppnClient = document.getElementById('ovpnclient_remove');
+        // checkbox logic consts
+        const wifiModEnable = document.getElementById('wifi_mod_enable');
+        const wifiModuleRemove = document.getElementById('wifi_module_remove');
+        const wifiIntT2 = document.getElementById('wifi_interface_t2');
+        const wifi2EthEnable = document.getElementById('wifi2ethernet_enable');
+        const wifiConfigRemove = document.getElementById('wifi_config_remove');
 
-        qbittorrentInsideVpn.addEventListener('change', () => {
-          if (qbittorrentInsideVpn.checked) {
-            ovpnClientEnable.checked = true;
-            OpenVPNClientConfigRows.forEach(row => row.style.display = '');
+      // Hide the VPNTV config rows by default
+        eth2WiFiConfig.forEach(row => row.style.display = 'none');
+        wifi2WifiConfig.forEach(row => row.style.display = 'none');
+
+      // eth2WifiEnable checked show/hide rest option and Checkbox logic
+        eth2WifiEnable.addEventListener('change', () => {
+          if (eth2WifiEnable.checked) {
+            eth2WifiEnable.checked = true;
+            eth2WiFiConfig.forEach(row => row.style.display = '');
+            // checkbox logic
+            wifi2Wifi.checked = false;
+            wifiModEnable.checked = false;
+            wifi2EthEnable.checked = false;
+            wifiConfigRemove.checked = false;
           } else {
-            ovpnClientEnable.checked = false;
-            OpenVPNClientConfigRows.forEach(row => row.style.display = 'none');
+            eth2WifiEnable.checked = false;
+            eth2WiFiConfig.forEach(row => row.style.display = 'none');
           }
-        });        
+        });      
 
+      // WiFi2WiFi checked show/hide rest option and Checkbox logic
+        wifi2Wifi.addEventListener('change', () => {
+          if (wifi2Wifi.checked) {
+            wifi2Wifi.checked = true;
+            wifi2WifiConfig.forEach(row => row.style.display = '');
+            eth2WiFiConfig.forEach(row => row.style.display = 'none');
+            // checkbox logic
+            eth2WifiEnable.checked = false;
+            wifi2EthEnable.checked = false;
+            wifiConfigRemove.checked = false;
+          } else {
+            wifi2Wifi.checked = false;
+            wifi2WifiConfig.forEach(row => row.style.display = 'none');
+            wifiModEnable.checked = false;
+          }
+        });      
 
-      // OVPN and Gluetun configuration upload section
+      // WiFi2Ethernet checked show/hide rest option and Checkbox logic
+      wifi2EthEnable.addEventListener('change', () => {
+          if (wifi2EthEnable.checked) {
+            wifi2EthEnable.checked = true;
+            wifi2WifiConfig.forEach(row => row.style.display = 'none');
+            eth2WiFiConfig.forEach(row => row.style.display = 'none');
+            // checkbox logic
+            eth2WifiEnable.checked = false;
+            wifi2Wifi.checked = false;
+            wifiConfigRemove.checked = false;
+          } else {
+            wifi2EthEnable.checked = false;
+            wifiModEnable.checked = false;
+          }
+        });      
+
+      // Remove checked show/hide rest option and Checkbox logic
+      wifiConfigRemove.addEventListener('change', () => {
+          if (wifiConfigRemove.checked) {
+            wifiConfigRemove.checked = true;
+            wifi2WifiConfig.forEach(row => row.style.display = 'none');
+            eth2WiFiConfig.forEach(row => row.style.display = 'none');
+            // checkbox logic
+            eth2WifiEnable.checked = false;
+            wifi2Wifi.checked = false;
+            wifi2EthEnable.checked = false;
+            wifiModEnable.checked = false;
+          } else {
+            wifiConfigRemove.checked = false;
+          }
+        });      
+
+      // OVPN configuration upload section
         document.addEventListener('DOMContentLoaded', () => {
           const openvpnForm = document.getElementById('upload-form');
           const secretForm = document.getElementById('secret-form');
