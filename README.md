@@ -15,3 +15,6 @@ sudo apt-get install upx-ucl
 upx --best webinstall
 upx -t webinstall
 ```
+
+
+<a href="https://www.buymeacoffee.com/d3vilh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="51" width="217"></a>
