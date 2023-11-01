@@ -2,7 +2,6 @@
 Configuration web-interface for VPNTV project
 
 <img src="https://raw.githubusercontent.com/d3vilh/vpntv-webconfig/main/images/Webinstall-01.png" alt="VPNTV webconfig main page" width="500" border="1"/>
-![Webinstall picture 1](/images/Webinstall-01.png)
 
 
 To build the webinstall binary:
