@@ -363,8 +363,8 @@
     <br>
 
     <iframe id="output-iframe" src="webinstall.log" width="100%" height="300" scrolling="yes"></iframe><br>
-    <table style="margin: auto;"">
-      <tr>
+    <table style="margin: auto; visibility: hidden;">
+      <tr style="visibility: hidden;">
         <td><b>Portainer:</b></td>
         <td><a href="http://{{ .Config.IPAddress }}:9000" target="_blank">http://{{.Config.IPAddress}}:9000</a></td>
         <td><b> &nbsp Monitoring:</b></td>
@@ -373,7 +373,7 @@
         <td><a href="http://{{ .Config.IPAddress }}:9090" target="_blank">http://{{.Config.IPAddress}}:9090</a></td>
         <td></td>
       </tr>
-    </table><br><br>
+    </table>
     <span style="font-size: 0.8em; display: block; margin: auto; text-align: center;">2023 by <a href="https://github.com/d3vilh" target="_blank">d3vilh</a> for <a href="https://github.com/d3vilh/vpntv" target="_blank">vpntv</a>.</span><br>
 
     <script>

@@ -74,9 +74,8 @@ func main() {
 		log.Fatal(err)
 	}
 	//log.Printf("DBG: webinstall.log updated with \"announcement\"")
-
 	// Log the welcome message
-	//log.Printf("Welcome! The web interface will guide you on installation process.\nInstallation logs: webinstall.log\n")
+	log.Printf("Welcome! The web interface will guide you on installation process.\nInstallation logs: webinstall.log\n")
 
 	// Create a new router
 	r := http.NewServeMux()
@@ -320,7 +319,7 @@ func saveConfig(w http.ResponseWriter, r *http.Request) {
 		OvpnClientRemove:  r.FormValue("ovpnclient_remove") == "on",
 	}
 
-	log.Printf("Saving main config: %v", config)
+	//log.Printf("DBG: Saving main config: %v", config)
 	err := writeConfig(config)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -363,7 +362,6 @@ func saveConfig(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//log.Printf("DBG: Inventory config saved. Starting writeInventoryConfig")
-
 	err = writeInventoryConfig(inventoryConfig)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
