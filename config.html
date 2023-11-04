@@ -237,7 +237,7 @@
           </td>
         </tr>
       </table>
-  </form>
+    </form> <!-- config-form1 -->
 
   <form id="upload-form" action="/upload?type=openvpn" method="post" enctype="multipart/form-data">
       <table>
@@ -253,8 +253,8 @@
               <span>vpntv/client-ovpn/client.ovpn</span></p>
           </td>
         </tr>
-      </table>
-  </form>
+      </table> 
+  </form> <!-- upload-form -->
 
   <form id="secret-form" action="/upload?type=openvpn-secret" method="post" enctype="multipart/form-data">
     <table>
@@ -271,8 +271,9 @@
         </td>
       </tr>
       </table>
-  </form>
+  </form> <!-- secret-form -->
 
+ <form id="config-form2" method="POST" action="/save">
   <h1>VPNTV Configuration</h1>
   <p>VPNTV configuration</p>
   <table>
@@ -347,7 +348,7 @@
     </tr>
 
   </table>
-</form>
+ </form> <!-- config-form2 -->
 
     <br><button id="submit-btn" style="font-family: monospace; font-size: 2em; width: 100px; height: 40px;">Save</button>
     <span id="save-message" style="display: none;">Configuration has been saved.</span>
@@ -401,8 +402,12 @@
         document.getElementById('submit-btn').addEventListener('click', function(event) {
           event.preventDefault();
           var formData1 = new FormData(document.getElementById('config-form1'));
+          var formData2 = new FormData(document.getElementById('config-form2'));
           var formData = new FormData();
           for (var pair of formData1.entries()) {
+            formData.append(pair[0], pair[1]);
+          }
+          for (var pair of formData2.entries()) {
             formData.append(pair[0], pair[1]);
           }
           var xhr = new XMLHttpRequest();
