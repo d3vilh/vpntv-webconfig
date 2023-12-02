@@ -167,58 +167,6 @@
         </table>
       </details>
 
-      <h1>WiFi Configuration</h1>
-      <p>VPNTV WiFi Access Point configuration</p>
-      <table>
-        <tr>
-          <td></td>
-          <td>
-            <label for="wifi_ssid" title="New VPNTV WiFi Network Name.">
-              <b>WiFi AP Network Name:</b>
-            </label>
-            <input type="text" name="wifi_ssid" title="New VPNTV WiFi Network Name." placeholder="vpntv" value="{{.Config.WifiSsid}}">
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <span>New WiFi network name to connect your TV to</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <label for="wifi_password" title="WiFi Password for new vpntv WiFi Network.">
-              <b>WiFi AP Network Password:</b>
-            </label>
-            <input type="text" name="wifi_password" title="WiFi Password for new vpntv WiFi Network." placeholder="Glory2Ukraine!" value="{{.Config.WifiPass}}">
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <span>New WiFi network password to connect your TV to</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <label for="wifi_channel" title="WiFi Network channel to use.">
-              <b>WiFi AP Network Channel:</b>
-            </label>
-            <input type="text" name="wifi_channel" title="WiFi Network channel to use." placeholder="7" value="{{.Config.WifiChannel}}">
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <span>New WiFi network channel to use (don't change without purpose)</span>
-          </td>
-        </tr>
-      </table>
-
       <h1>OpenVPN Client</h1>
       <p>Classic OpenVPN Client Setup</p>
       <table>
@@ -279,11 +227,24 @@
   <table>
     <tr>
       <td>
+        <input type="checkbox" name="wifi2ethernet_enable" id="wifi2ethernet_enable" title="Enables WiFi 2 Ethernet VPNTV Configuration" {{if .Config.Wifi2EthEnable}}checked{{end}}>
+      </td>
+      <td>
+        <label for="wifi2ethernet_enable" title="Enables WiFi 2 Ethernet VPNTV Configuration"><b>WiFi 2 Ethernet</b></label>
+      </td>
+      <td></td>
+      <td> TV connects to VPNTV with Ethernet port.</td>
+    </tr>
+
+    <tr>
+      <td>
         <input type="checkbox" name="ethernet2wifi_enable" id="ethernet2wifi_enable" title="Enables Ethernet 2 WiFi VPNTV Configuration" {{if .Config.Eth2WifiEnable}}checked{{end}}>
       </td>
       <td>
-        <label for="ethernet2wifi_enable" title="Enables Ethernet 2 WiFi VPNTV Configuration"><b>Ethernet 2 WiFi.</b> TV will be connectiong to new WiFi, wile VPNTV using Ethernet connection to router or switch.</label>
+        <label for="ethernet2wifi_enable" title="Enables Ethernet 2 WiFi VPNTV Configuration"><b>Ethernet 2 WiFi</b></label>
       </td>
+      <td></td>
+      <td> TV connects via VPNTV WiFi, wile VPNTV connects to router with its Ethernet.</td>
     </tr>
   
     <tr ethernet2wifi="config">
@@ -301,8 +262,10 @@
         <input type="checkbox" name="wifi2wifi_enable" id="wifi2wifi_enable" title="Enables WiFi 2 WiFi VPNTV Configuration" {{if .Config.Wifi2Wifi}}checked{{end}}>
       </td>
       <td>
-        <label for="wifi2wifi_enable" title="Enables WiFi 2 WiFi VPNTV Configuration"><b>WiFi 2 WiFi.</b> Bridged WiFi connection.</label>
+        <label for="wifi2wifi_enable" title="Enables WiFi 2 WiFi VPNTV Configuration"><b>WiFi 2 WiFi</b></label>
       </td>
+      <td></td>
+      <td> Bridged WiFi connection.</td>
     </tr>
     <tr wifi2wifi="config">
       <td>
@@ -317,7 +280,6 @@
       <td>
         <label for="wifi_module_remove" title="Removes WiFi Modules">Uninstall WiFi modules</label>
       </td>
-
     </tr>
     <tr wifi2wifi="config">
       <td></td>
@@ -331,15 +293,6 @@
 
     <tr>
       <td>
-        <input type="checkbox" name="wifi2ethernet_enable" id="wifi2ethernet_enable" title="Enables WiFi 2 Ethernet VPNTV Configuration" {{if .Config.Wifi2EthEnable}}checked{{end}}>
-      </td>
-      <td>
-        <label for="wifi2ethernet_enable" title="Enables WiFi 2 Ethernet VPNTV Configuration"><b>WiFi 2 Ethernet</b> TV connects to VPNTV with Ethernet port.</label>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
         <input type="checkbox" name="wifi_config_remove" id="wifi_config_remove" title="removes all types of VPNTV connections configuration and stop the serives" {{if .Config.WifiConfigRemove}}checked{{end}}>
       </td>
       <td>
@@ -348,6 +301,60 @@
     </tr>
 
   </table>
+
+  <h1>WiFi Configuration</h1>
+  <p>VPNTV WiFi Access Point configuration</p>
+  <table>
+    <tr>
+      <td></td>
+      <td>
+        <label for="wifi_ssid" title="New VPNTV WiFi Network Name.">
+          <b>WiFi AP Network Name:</b>
+        </label>
+        <input type="text" name="wifi_ssid" title="New VPNTV WiFi Network Name." placeholder="vpntv" value="{{.Config.WifiSsid}}">
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <span>New WiFi network name to connect your TV to</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <label for="wifi_password" title="WiFi Password for new vpntv WiFi Network.">
+          <b>WiFi AP Network Password:</b>
+        </label>
+        <input type="text" name="wifi_password" title="WiFi Password for new vpntv WiFi Network." placeholder="Glory2Ukraine!" value="{{.Config.WifiPass}}">
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <span>New WiFi network password to connect your TV to</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <label for="wifi_channel" title="WiFi Network channel to use.">
+          <b>WiFi AP Network Channel:</b>
+        </label>
+        <input type="text" name="wifi_channel" title="WiFi Network channel to use." placeholder="7" value="{{.Config.WifiChannel}}">
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <span>New WiFi network channel to use (don't change without purpose)</span>
+      </td>
+    </tr>
+  </table>
+
+
  </form> <!-- config-form2 -->
 
     <br><button id="submit-btn" style="font-family: monospace; font-size: 2em; width: 100px; height: 40px;">Save</button>
